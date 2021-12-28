@@ -1,0 +1,9 @@
+a.btn.btn-primary.nav-link.text-light {
+    height: 40px;
+    line-height: 18px;
+    color: #FFF !important;
+}
+
+a.btn.btn-primary.nav-link.text-light:hover {
+    background: #131388;
+}

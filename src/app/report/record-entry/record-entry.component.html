@@ -1,0 +1,108 @@
+
+
+
+<div class="container">
+    <div class="row">
+    			    <div class="col-md-6">
+            <div style="font-size:18px;font-weight: bold;"></div>
+        </div>
+		<div class="col-md-6 text-right">
+		<button class="btn btn-sm font-weight-bold btn-link" (click)="backClicked()"><i class="fa fa-arrow-left"></i> Back </button>
+		<button class="btn btn-sm font-weight-bold btn-link" (click)="exportElmToExcel()"><i class="fa fa-external-link"></i> Export To Excel </button>
+		</div>
+		
+		
+		
+		
+    </div>
+	
+	<div class="row">
+	<div class="col-sm-8"><h5 style="font-weight:bold;">All Entries - {{model.name}}</h5></div>
+			         <div class="col-md-2 text-right">
+           <div class="form-group">
+        <select class="form-control" name="search_date" [(ngModel)]="search_date" (change)="changeDateFilter()">
+		 <option value="all">All Entries</option>
+		 <option value="today">Today's Entries</option>
+		 <option value="yesterday">Yesterday Entries</option>
+		 <option value="7">Last 7 Days</option>
+		 <option value="15">Last 15 Days</option>
+		 <option value="30">Last 30 Days</option>
+		 <option value="90">Last 90 Days</option>
+		 <option value="365">Last 1 Years</option>
+		</select>
+    </div>
+    </div>
+	
+	<div class="col-md-2 text-right">
+	 <div class="form-group">
+        <input type="text" class="form-control" placeholder="Search Here" [(ngModel)]="term">
+    </div>
+        </div>
+	
+	
+	</div>
+	
+    <hr />
+	  
+		 
+	 <div class="clearfix"></div>
+	 <div class="row">
+	<div class="col-md-6"> <div style="font-weight:bold;">Total Records : <span style="color:red;">{{total}}</span></div> </div>
+	<div class="col-md-6 text-right pr-0"> 
+	<div>
+	Show <select class="form-control_cust" [(ngModel)]="limit" (change)="changeSetLimitFilter()">
+	<option value="10">10</option>
+	<option value="30">30</option>
+	<option value="50">50</option>
+	<option value="100">100</option>
+	<option value="500">500</option>
+	<option value="1000">1000</option>
+	</select> entries
+	</div> 
+	</div>
+	</div>
+	
+    <div class="table-responsive mt-3">
+        <table class="table table-stripped table-bordered" #recordTable>
+            <tr class="thead-dark">
+                <th><!--<input type="checkbox" [(ngModel)]="masterSelected" name="list_name" value="m1" (change)="checkUncheckAll()"/>
+				  <button type="button" (click)="getCheckedItemList()">Delete</button>-->
+				</th>
+				<th>Order ID</th>
+				<th *ngIf="model.form_type!='enquiry'">Total Amount</th>
+                <th *ngFor="let item of attributes"> {{item.label}}</th>
+				<th>Added Data</th>
+				<th>IP Address </th>
+ 
+            </tr>
+			 
+				<ng-container *ngFor="let row of rows | filter:term | paginate: { itemsPerPage: limit, currentPage: p, totalItems: total } ; let i=index; ">
+					<tr *ngIf="!Dataloading">
+						<td>
+						<!--<input type="checkbox" [(ngModel)]="row.isSelected" name="list_name" value="{{row.id}}" (change)="isAllSelected()"/>-->
+						<a href="javascript:void(0)" class="btn btn-sm" (click)="deleteRecord(row.id)"><i class="fa fa-trash"></i></a></td>
+						<td>{{row.order_id}}</td>
+					   <td *ngIf="model.form_type!='enquiry'">{{model.currency_code}} {{row.total_price}} <span class="{{row.status}}">{{row.status}}</span></td>
+					   <td *ngFor="let col of row.data_value">
+						<span *ngIf="col.type=='file' || col.type=='image'"><a href="{{apiUrl}}uploads/{{col.value.filename}}">{{col.value.originalname}}</a></span>
+						<span *ngIf="col.type!='file' && col.type!='image'">{{col.value}}</span>
+						</td>
+						 <td>{{row.submitted_date}}</td>
+						 <td>{{row.ip_address}}</td>
+					</tr>
+				</ng-container>
+		 
+           <tr *ngIf="rows.length == 0 && !Dataloading">
+                <td colspan="20" class="text-center">No records.</td>
+            </tr> 
+           		
+        </table>
+		<ngx-skeleton-loader count="10" animation="progress" *ngIf="Dataloading"></ngx-skeleton-loader>
+    </div>
+	
+	<div class="pagination pagination-sm m-0 float-right mt-2">
+        <pagination-controls (pageChange)="getPage($event)"></pagination-controls>
+    </div>
+     
+</div>
+

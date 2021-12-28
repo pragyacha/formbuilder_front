@@ -1,0 +1,638 @@
+<!-- The Modal -->
+<div class="modal right fade in" id="myModal">
+  <div class="modal-dialog modal-dialog-query modal-lg modal-xl">
+    <div class="modal-content">
+<form [formGroup]="queryCommentForm">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">View Query Details <div class="pull-right" style="margin-right: 100px;"><span>Average TAT : 09h 54m</span>
+					&nbsp;&nbsp;&nbsp;&nbsp;
+					<span>Average Score : 4.5</span>
+					</div></h4>
+        <button type="button" class="close" (click)="hideModal()">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+      <!-- --------------------------Query Data Start--------------------------------------->
+                
+ <div class="row">
+				 <div class="col-md-12">
+				 <div class="form-group pull-right">
+                   Escalation  Mark <input type="checkbox"  onclick="checkEscalationMark(this.checked)">
+                </div>
+				
+				 </div>
+				 
+				 <div class="col-md-5">
+				  
+ 				 <!-- Custom Tabs -->
+          <div class="box box-primary  nav-tabs-custom">
+            <ul class="nav nav-tabs">
+              <li class="active"><a href="#tab_QueryInfo" data-toggle="tab">Query Information</a></li>
+			  <li><a href="#tab_GeneratePrice" data-toggle="tab" onclick="ShowUserPriceQuote()">Generate Price</a></li>	 
+             </ul>
+            <div class="tab-content">
+              <div class="tab-pane active" id="tab_QueryInfo">
+            <!-- ////////////////////////////////////////-->
+			
+				 <div class="row">
+				<div class="col-xs-5"><label>Ref. No.</label></div>
+				<div class="col-xs-1"></div>
+				<div class="col-xs-6">
+				 			   <a href="javascript:" class="dropdown-toggle" data-toggle="dropdown"  onclick="getActivityHistory()">{{queryInfo.assign_id}} <i class="caret"></i></a> 
+                
+                  <ul class="dropdown-menu dropdownmenu" role="menu">
+                    <div class="box-header with-border">
+                    <h2 class="box-title">Earlier Activity </h2>
+                  </div>
+			 <div class="box-body" id="activityHistoryData"></div>
+		        </ul>
+			  				  
+				
+				
+				</div>
+				</div>
+				 
+				<div class="row">
+				<div class="col-xs-5"><label>Profile</label></div>
+				<div class="col-xs-1"></div>
+				<div class="col-xs-6">
+				<div id="ShowProfileDiv">  
+				<span id="GetProfileName">{{queryInfo.profile_name}}</span>
+								 </div>
+				 				
+				</div>
+				</div>
+				   
+				
+								<div class="row">
+				<div class="col-xs-5"><label>Name</label></div>
+				<div class="col-xs-1"></div>
+				<div class="col-xs-6">{{queryInfo.name}}</div>
+				</div>
+				  				  
+				 <div class="row">
+				<div class="col-xs-5"><label>Email</label></div>
+				<div class="col-xs-1"></div>
+				<div class="col-xs-6">{{queryInfo.email_id}}</div>
+				</div>
+				
+				<div class="row" *ngIf="queryInfo.alt_email_id">
+				<div class="col-xs-5"><label>Alternate Email ID</label></div>
+				<div class="col-xs-1"></div>
+				<div class="col-xs-6">{{queryInfo.alt_email_id}}</div>
+				</div>
+				
+				<div class="row">
+				<div class="col-xs-5"><label>Contact No.</label></div>
+				<div class="col-xs-1"></div>
+				<div class="col-xs-6">{{queryInfo.phone}}</div>
+				</div>
+				
+				<div class="row" *ngIf="queryInfo.alt_contact_no">
+				<div class="col-xs-5"><label>Alternate Contact No.</label></div>
+				<div class="col-xs-1"></div>
+				<div class="col-xs-6">{{queryInfo.alt_contact_no}}</div>
+				</div>
+																												
+				<div class="row">
+				<div class="col-xs-5"><label>Requirement</label></div>
+				<div class="col-xs-1"></div>
+				<div class="col-xs-6">{{queryInfo.service_name}}</div>
+				</div>
+								 
+				  
+				 
+				  				<div class="row">
+				<div class="col-xs-5"><label>Location</label></div>
+				<div class="col-xs-1"></div>
+				<div class="col-xs-6">{{queryInfo.location}}</div>
+				</div>
+				
+				<div class="row" *ngIf="queryInfo.city">
+				<div class="col-xs-5"><label>City</label></div>
+				<div class="col-xs-1"></div>
+				<div class="col-xs-6">{{queryInfo.city}}</div>
+				</div>
+				  				  				  				 				 				<div class="row">
+				<div class="col-xs-5"><label>Website</label></div>
+				<div class="col-xs-1"></div>
+				<div class="col-xs-6">{{queryInfo.website_name}}</div>
+				</div>
+				                                 
+                <div class="row">
+				<div class="col-xs-5"><label>Allocated To</label></div>
+				<div class="col-xs-1"></div>
+				<div class="col-xs-6">{{queryInfo.user_name}}</div>
+				</div>                
+				<div class="row">
+				<div class="col-xs-5"><label>Priority</label></div>
+				<div class="col-xs-1"></div>
+				<div class="col-xs-6">
+				<div id="ShowPriorityDiv">  
+				<span id="GetPriorityName">{{queryInfo.assign_priority}}</span>
+				                 <span onclick="SwitchPriorityFun()" style="font-size: 20px; margin-left: 10px; cursor:pointer;" class="fa fa-edit"></span>
+								 </div>
+				 				 <div style="display: none;" id="EditPriorityDiv">
+                  <select name="switch_priority" id="switch_priority" class="form-control switch_priority">
+				  <option value="">Select Priority</option>
+				                        
+					<option value="Editing|3|Email" >Editing</option> 
+					                  
+                   </select>
+                    </div>
+								
+				</div>
+				
+				
+				
+				<!--<div class="col-xs-6">Medium</div>-->
+				</div>
+			   				<div class="row">
+				<div class="col-xs-5"><label>Academic Level</label></div>
+				<div class="col-xs-1"></div>
+				<div class="col-xs-6">{{queryInfo.academic_level}}</div>
+				</div>
+			 			 
+			 				<div class="row">
+				<div class="col-xs-5"><label>Tag</label></div>
+				<div class="col-xs-1">{{queryInfo.tags}}</div>
+				
+				<div class="col-xs-6">
+				<div id="ShowTagDiv" style="word-wrap: break-word;">  
+				<span id="GetTagName">
+								</span>
+				                 <span onclick="SwitchTagFun()" style="font-size: 20px; margin-left: 10px; cursor:pointer;" class="fa fa-edit pull-right"></span>
+								 </div>
+				 				 <div style="display: none;" id="EditTagDiv">
+                  <select name="switch_tag[]" id="switch_tag" multiple class="form-control select2">
+				  <option value="">Select Tags</option>
+				                        <option value="67" >whatsapp followup done</option>
+				                        <option value="66" >wrong number</option>
+				                       
+				                        
+                   </select>
+				   <button type="button" class="btn btn-success btn-sm pull-right" onclick="return SaveTags()">Save</button>
+                    </div>
+								
+				</div>
+				
+				
+				 
+				</div>
+			 			 
+			 				<div class="row">
+				<div class="col-xs-5"><label>Remarks</label></div>
+				<div class="col-xs-1"></div>
+				<div class="col-xs-6">{{queryInfo.remarks}}</div>
+				</div>
+			 			 
+			 				<div class="row">
+				<div class="col-xs-5"><label>Follow up Date</label></div>
+				<div class="col-xs-1"></div>
+				<div class="col-xs-6">{{queryInfo.assign_follow_up_date}}</div>
+				</div>
+				
+				<div class="row">
+				<div class="col-xs-5"><label>Query Created Date</label></div>
+				<div class="col-xs-1"></div>
+				<div class="col-xs-6">{{queryInfo.assign_date}}
+				<input type="hidden" id="created_date_time" value="06/24/2020 17:33:36">
+				
+				</div>
+				</div>
+								<div class="row">
+				<div class="col-xs-5"><label>Uploaded Files</label></div>
+				<div class="col-xs-1"></div>
+				<div class="col-xs-6">
+								 <div><a href="https://instacrm.rapidcollaborate.com/public/UploadFolder/15922050370_SITARAMALIASGAURESHGOPALSHETGAONKAR.pdf" download>SITARAM ALIAS GAURESH GOPAL SHETGAONKAR.pdf</a></div>
+								</div>
+				</div>
+								
+				<div class="row">
+				<div class="col-xs-5"><label>Query Status</label></div>
+				<div class="col-xs-1"></div>
+				<div class="col-xs-6">
+				<span class="label label-{{queryInfo.status_name.class}}">{{queryInfo.status_name.name}}</span>				
+				</div>
+				</div>
+				
+			
+            <!-- ////////////////////////////////////////-->
+
+                
+              </div>
+              <!-- /.tab-pane -->
+              <div class="tab-pane" id="tab_AskScope">
+                				 				
+								
+              </div>
+              <!-- /.tab-pane -->
+              <div class="tab-pane" id="tab_GeneratePrice"> 
+			  
+			  </div>
+              <!-- /.tab-pane -->
+            </div>
+            <!-- /.tab-content -->
+          </div>
+          <!-- nav-tabs-custom -->
+			
+			 
+			
+				</div>
+				 
+				<div class="col-md-7  connectedSortable">
+				
+   
+				<!-- Right Section -->
+          <div class="box box-primary  direct-chat direct-chat-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">Comments <span class="pull-right"></span></h3>
+			  <div class="box-tools pull-right" style="display:none;">
+			  
+                <span class="btn btn-primary" onclick="getAutoComments()"><i class="fa fa-fw fa-refresh"></i>Show Conversations</span>
+                
+                 
+              
+              </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+			  <!-- Conversations are loaded here -->
+              <div class="direct-chat-messages">
+                <!-- Message. Default to the left -->
+              
+              <!-- Conversations are loaded here -->
+			  <div class="box-body chat" id="appendComments" style="opacity: 1;"> 
+ 				 
+				 
+				  <!-- chat item -->
+              <div class="item" *ngFor="let comment of commentsData">
+            
+                <span class="user-avatar">PR</span>
+                <p class="message">
+                   
+                    <small class="text-muted pull-right" style="font-size: 12px;"><i class="fa fa-clock-o"></i> <span data-toggle="tooltip" data-original-title="24 Jun 2020 05:51 PM">3 Hours ago</span></small>
+                     </p><div class="btn-group mailinfoToogle">
+                   <span style="font-weight:bold;color:#3d8dbc"> Pon Reka</span>
+                  				   <span class="caret dropdown-toggle" data-toggle="dropdown"></span> 
+                
+                  <ul class="dropdown-menu dropdownmenu" role="menu">
+                    <li>From:	<strong>Pon Reka</strong> &lt; phd-chennai@chanakyaresearch.net &gt;   </li>
+                    <li>To:	<span onclick="getCopyContent('#p1')" id="p1">kvdmalleswar@gmail.com</span></li>
+										                     <li>Date: Jun 24, 2020,  05:51 PM </li>
+                    <li>Subject:	Enquiry at Chanakya research</li>
+                    
+                  </ul>
+				                  </div>
+                  
+				  
+                  <div class="custom-comments-message">
+				 <div class="custom-message" *ngIf="comment.comments"><label>Email Body</label> {{comment.comments}}				 			
+				 </div>
+								 
+				<div class="custom-message" *ngIf="comment.email_body"><label>Email Body</label> :  {{comment.email_body}}
+				 {{comment.signature}}
+				 </div>
+				 				 
+				 <div class="custom-message-inner" *ngIf="comment.sms_body"><label>SMS Message</label> :{{comment.sms_body}}				 			
+				 </div>
+				 				 
+				  				 
+				 				  
+				  </div>
+                <p></p>
+				                <!-- /.attachment -->
+              </div>
+              <!-- /.item -->
+           
+ 
+ 
+  
+
+</div>
+               
+             
+
+               
+                <!-- /.direct-chat-msg -->
+              </div>
+              <!--/.direct-chat-messages-->
+ 
+			
+			 <!-- Contacts are loaded here -->
+              
+              <!-- /.direct-chat-pane -->
+			
+			</div>
+         
+		 		 <div class="box-footer">
+ 		 
+		 
+		  <div class="row">
+        <div class="col-md-12">
+				<input type="hidden" formControlName="in_time">
+				<input type="hidden" formControlName="assign_id" id="assign_id">
+				<input type="hidden" formControlName="query_id" id="query_id">
+				<input type="hidden" formControlName="old_status" id="old_status">
+         	
+				<div class="row">
+				 <div class="col-xs-5"><label>Status</label></div>
+				 <div class="col-xs-3"></div>
+				 <div class="col-xs-4">
+				  <select formControlName="update_status1" id="update_status1" class="form-control" >
+				  <option value="1">Lead In</option>
+				  <option value="2" selected="selected">Contact Made</option>
+				  <option value="6">Client Not Interested</option>
+				  <option value="3">Quoted</option>
+				  <!-- <option value="4" >Negotiating</option>-->
+				   <option value="5">Converted</option>				   
+				   <option value="7">Reminder</option>
+				   <option value="8">Lost deals</option>
+				   </select>
+					<div id="remainder_div" style="display:none;">
+					<input type="text" formControlName="remainder_date" id="remainder_date" class="form-control datepicker"></div>
+					
+                 <span>Shifted Date : {{queryInfo.update_status_date}}</span>
+                 <!--<div>
+					 Next Followup Date : 
+					 
+					 <span style="font-size:13px;" id="show_flday_div528119">
+									  26 Jun 2020																		<span onclick="ChangeFolloupDate(528119)" style="font-size:15px; margin-left:5px; cursor:pointer;" class="fa fa-edit">  Edit
+									  </span>
+																		  </span>
+									<span id="edit_flday_div528119" style="display:none;">
+									   <input readonly="" class="form-control1 datepicker" style="width:100px;" type="text" name="edit_followup_day528119" id="edit_followup_day528119" value="06/26/2020">
+									   <input class="btn btn-info btn-xs" type="button" onclick="SaveFollowupDate(528119)" value="Save">
+									  </span>  
+									  
+					 
+					   
+					 </div>-->
+					
+					
+				</div>
+				</div>
+				
+				
+        </div>
+    
+	<div class="col-md-12">
+        <div class="form-group">
+		<div class="form-row">
+		<div class="checkbox">
+                    <label> 
+					<input type="checkbox" formControlName="send_mail_type1" id="send_mail_type1" value="Email" (click)="ClickAndCheckMailType(1)"> Email 
+					 </label>
+					 
+                  </div>
+		</div>
+		</div>		  
+</div>
+
+<div class="col-md-12" id="send_mail_type1Div" style='padding-left:30px;display:none;'>
+<div id="TempShow1">
+<div class="form-group">
+		<div class="form-row">
+                  <label for="inputEmail3" class="col-md-2 control-label">From:</label>
+                  <div class="col-md-10">
+                   <input type="text" class="form-control" formControlName="mail_from_email" id="mail_from_email">
+                  </div>
+                </div>
+         </div>
+				<div class="form-group">
+				<div class="form-row">
+                  <label for="inputEmail3" class="col-md-2 control-label">To:</label>
+                  <div class="col-md-8">
+                   <input type="text" style="border:none;" readonly="" class="form-control" formControlName="mail_to" id="mail_to" >
+				    
+                  </div>
+				  <div class="col-md-2"> <a href="javascript:" (click)="showEmailCCBCC('cc')">CC</a> &nbsp;&nbsp;<a href="javascript:" (click)="showEmailCCBCC('bcc')">BCC</a></div>
+                </div>
+          </div>
+
+				 <div class="form-group" id="ccMailDiv" style="display:block;">
+				 <div class="form-row">
+                  <label for="inputEmail3" class="col-sm-2 control-label">CC:</label>
+                  <div class="col-sm-10">
+                   <input type="text" class="form-control" formControlName="email_cc" id="email_cc" value="">
+                  </div>
+                </div>
+                </div>
+
+				 <div class="form-group" id="bccMailDiv" style="display:block;">
+				 <div class="form-row">
+                  <label for="inputEmail3" class="col-sm-2 control-label">BCC:</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" formControlName="email_bcc" id="email_bcc" value="">
+                  </div>
+                </div>
+                </div>
+				 
+				 <div class="form-group">
+				 <div class="form-row">
+                  <label for="inputEmail3" class="col-sm-2 control-label">Subject:</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" formControlName="mail_subject" id="mail_subject" value="Enquiry at Chanakya research">
+                  </div>
+                </div>
+                </div>
+		  
+		       <div class="form-group">
+				 <div class="form-row">
+                  <label for="inputEmail3" class="col-sm-2 control-label">Email Body :</label>
+                  <div class="col-sm-10">
+                   <textarea class="form-control textarea1" formControlName="email_temp_body" id="temp_body1"></textarea>
+                  </div>
+                </div>
+                </div>
+				
+				<div class="form-group" id="attachment_file">
+				 <div class="form-row">
+                                            <div class="col-md-10"><input type="file" class="form-control" name="comments_file[]" id="comments_file1"/></div>
+                                            <div class="col-md-2" id="add_more_button">
+											<i style="font-size:20px;padding-top:3px;cursor:pointer;" class="fa fa-plus-circle">+Add</i></div>
+              
+
+				 </div>
+				 </div>
+				 <div class="form-group"> 
+				  <div class="form-row">
+				 <label>Email Signature : </label>
+				 <textarea class="form-control mail_signature" formControlName="mail_signature" id="mail_signature" style="height:75px;"></textarea>
+				 </div>
+				 </div>
+		  
+		  <input type="button" class="btn btn-primary pull-right" value="Approve" (click)="ApproveTemplate(1)">
+</div>
+<div id="TempHide1" style="display:none;">	  
+<span class="label label-success"> <i class="fa fa-check"></i> Approved </span> &nbsp;&nbsp;
+<span style="cursor:pointer;" class="label label-info" onclick="EditTemplateContent(1)"> <i class="fa fa-edit"></i> Edit</span> 
+<input type="hidden" name="approveStatus1" id="approveStatus1" value="0" >
+</div>
+
+</div>
+<div class="col-md-12">
+        <div class="form-group">
+		<div class="form-row">
+		<div class="checkbox">
+				   <label> 
+				  <input type="checkbox" formControlName="send_mail_type2" id="send_mail_type2" value="SMS" (click)="ClickAndCheckMailType(2)"> SMS
+				 </label>
+                  </div>
+		</div>
+		</div>
+
+     <div class="form-group" id="send_mail_type2Div" style="margin-left:21px; display:none;">
+	 <div class="form-row">
+	   <div class="col-md-12">
+				   <div id="TempShow2">
+				  <textarea style="height:80px;" class="form-control" formControlName="sms_temp_body" id="temp_body2"></textarea>
+				  
+				  <input type="button" class="btn btn-primary pull-right" value="Approve" onclick="ApproveTemplate(2)">
+				  </div>
+				  <div class="clearfix"></div>
+				  <div id="TempHide2" style="display:none;">
+				  <span class="label label-success"> <i class="fa fa-check"></i> Approved </span> &nbsp;&nbsp;
+				 <span style="cursor:pointer;" class="label label-info" onclick="EditTemplateContent(2)"> <i class="fa fa-edit"></i> Edit</span> 
+				  
+				  
+				 <input type="hidden" name="approveStatus2" id="approveStatus2" value="0" >
+				 </div>
+				  
+				</div>
+	 </div>
+	 </div>
+
+	
+</div>
+
+<div class="col-md-12">
+
+<div class="form-group">
+<div class="form-row">
+			   <div class="checkbox">
+                    <label> <input type="checkbox"  formControlName="send_mail_type3" id="send_mail_type3" value="Call" (click)="ClickAndCheckMailType(3)"> Call </label>
+               </div>
+			   
+</div>
+</div>
+
+<div class="form-group" id="send_mail_type3Div" style="margin-left:21px; display:none;">
+<div class="form-row">
+<div class="col-md-12">
+			    <div id="TempShow3">
+				  <textarea style="height:80px;" class="form-control" formControlName="call_temp_body" id="temp_body3" placeholder="Enter Minimum 10 words"></textarea>
+				  
+				  <input type="button" class="btn btn-primary pull-right" value="Approve" onclick="ApproveTemplate(3)">
+				  </div>
+				  <div class="clearfix"></div>
+				  <div id="TempHide3" style="display:none;">
+				  <span class="label label-success"> <i class="fa fa-check"></i> Approved </span> &nbsp;&nbsp;
+				 <span style="cursor:pointer;" class="label label-info" onclick="EditTemplateContent(3)"> <i class="fa fa-edit"></i> Edit</span>
+				  
+				  <input type="hidden" name="approveStatus3" id="approveStatus3" value="0" ></div>
+				  
+				</div>
+</div>
+
+</div>
+
+
+</div>
+
+<div class="col-md-12">
+<div class="form-group">
+<div class="form-row">
+		<div class="checkbox">
+		<label> <input type="checkbox" formControlName="send_mail_type4" id="send_mail_type4" value="Meeting" (click)="ClickAndCheckMailType(4)"> Meeting </label>
+		</div>
+</div>
+</div>
+
+<div class="form-group" id="send_mail_type4Div" style="margin-left:21px; display:none;">
+<div class="form-row">
+<div class="col-md-12">
+				 <div id="TempShow4">
+				  <textarea style="height:80px;" class="form-control" formControlName="meeting_temp_body" id="temp_body4" placeholder="Enter Minimum 10 words"></textarea>
+				  
+				  <input type="button" class="btn btn-primary pull-right" value="Approve" onclick="ApproveTemplate(4)">
+				  </div>
+				  <div class="clearfix"></div>
+				  <div id="TempHide4" style="display:none;">
+				  <span class="label label-success"> <i class="fa fa-check"></i> Approved </span> &nbsp;&nbsp;
+				 <span style="cursor:pointer;" class="label label-info" onclick="EditTemplateContent(4)"> <i class="fa fa-edit"></i> Edit</span>
+				  
+				  <input type="hidden" name="approveStatus4" id="approveStatus4" value="0" ></div>
+				  
+				</div>
+</div>
+</div>
+
+</div>
+
+<div class="col-md-12">
+<div class="form-group">
+<div class="form-row pull-left"><a href="javascript:" class="label label-primary"  onclick="AddExternalComments()"> Add Comments</a></div>
+<div class="form-row pull-right">
+<input type="hidden" name="totalHours" id="totalHours">
+				<input type="hidden" name="totalMinutes" id="totalMinutes">
+				<input id="submitBtn1" type="submit" name="updateBtn" class="btn btn-primary" value="Submit" (click)=" UpdateComents();">
+				
+				<input id="submitBtn2" style="display:none;" type="button" disabled class="btn btn-primary" value="Please Wait...">
+
+</div>
+</div>
+
+</div>
+
+
+
+	</div>
+
+
+<!--///////////////Only comments dive/////////////////////-->
+<div class="row" style="display: none;" id="externalCommentsDiv">
+<div class="col-md-12">
+				<div><a href="javascript:" class="label label-primary" onclick="AddExternalComments()"> Hide Comments</a></div>
+ 				<div class="col-xs-12">
+				<div class="form-group">
+				<label>Comments</label>
+				<textarea name="comments" id="comments" class="form-control" style="height:100px;" placeholder="Write a comment..."></textarea>
+				</div>
+				</div>
+				
+				<div class="col-xs-12">
+				<div class="form-group">
+				<input id="submitBtnC1" type="button" name="updateBtn" class="btn btn-primary pull-right" value="Submit" onclick="return UpdateOnlyComents();">
+				
+				<input id="submitBtnC2" style="display:none;" type="button" disabled class="btn btn-primary pull-right" value="Please Wait...">
+				</div>
+				</div>
+</div>
+</div>
+
+			
+                <!-- /.direct-chat-msg -->
+            </div>
+							
+           
+          </div>
+          <!--/.direct-chat -->
+				 
+				
+				</div>
+               
+
+
+			   </div>
+			   
+
+
+      <!------------------------------------Query Data End--------------------------------------->
+      </div>
+</form>
+    </div>
+  </div>
+</div>

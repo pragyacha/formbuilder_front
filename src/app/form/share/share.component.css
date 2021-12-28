@@ -1,0 +1,10 @@
+h2 {
+    font-size: 23px;
+    padding-bottom: 0px !important;
+    margin-bottom: 0px;
+}label {
+    font-weight: 500;
+    font-size: 14px;
+}ul.nf-tempHeadBdr {
+    background: blue !important;
+}

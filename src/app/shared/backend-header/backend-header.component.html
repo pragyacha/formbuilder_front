@@ -1,0 +1,39 @@
+
+<nav class="navbar navbar-expand-md navbar-dark bg-white mb-2 border-bottom">
+    <a class="navbar-brand"  routerLink="/dashboard"><img src="https://www.thehrbulb.com/images/logo.png" class="w-25"></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+     <!-- <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" routerLink="dashboard" routerLinkActive="active">Dashboard</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/dashboard/product" routerLinkActive="active">Products</a>
+        </li>
+		
+		<li class="nav-item">
+		  <a class="nav-link" routerLink="/dashboard/product/upload" routerLinkActive="active">File Upload</a>
+		</li>
+		
+		<li class="nav-item">
+		  <a class="nav-link" routerLink="/dashboard/form/niranjanform/builder" routerLinkActive="active">Builder</a>
+		</li>
+		
+		<li class="nav-item">
+		  <a class="nav-link" routerLink="/dashboard/form/niranjanform/settings" routerLinkActive="active">Settings</a>
+		</li>
+		<li class="nav-item">
+		  <a class="nav-link" routerLink="/dashboard/form/niranjanform/share" routerLinkActive="active">Share</a>
+		</li>
+        
+      </ul> -->
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="btn btn-primary nav-link text-light" href="javaScript:void(0)" (click)="logout()">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <app-message></app-message>

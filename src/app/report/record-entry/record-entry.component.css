@@ -1,0 +1,60 @@
+.table-responsive {
+    max-height: 500px;
+}
+.table .thead-dark th {
+    text-align: center;
+}
+.Paid{
+	color: #49b149;
+    font-weight: bold;
+}
+.Pending{
+	color: #444;
+    font-weight: bold;
+}
+.Cancelled{
+	color: #f35e6c;
+    font-weight: bold;
+}tr.thead-dark {
+    font-weight: 500 !important;
+    font-size: 12px;
+}
+
+tr.thead-dark th {
+    background: #e5f0ff !important;
+    color: #000 !important;
+    border-color: #ccc !important;
+}table {
+    font-size: 13px;
+}span.Paid {
+    background: #18c318;
+    padding: 1px;
+    border-radius: 4px;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-top: 3px;
+    float: left;
+    color: #FFF !important;
+    font-size: 11px;
+    font-weight: 500 !important;
+}span.Pending {
+    background: orange;
+    padding: 2px;
+    border-radius: 4px;
+    margin-top: 5px;
+    float: left;
+    color: #FFF !important;
+    height: 20px;
+    line-height: 13px;
+    font-weight: 400;
+    font-size: 12px;
+}select, input {
+    font-size: 13px !important;
+    margin-top: 6px;
+}select.form-control_cust {
+    border-radius: 0px;
+}::-webkit-scrollbar-button {
+  height: 6px;
+}button.btn.btn-sm.font-weight-bold.btn-link {
+    color: #ea3e3e;
+}

@@ -1,0 +1,122 @@
+
+
+input, input[type="text"], input[type="search"], isindex, textarea, button {
+	outline:none;
+	margin:0 auto;
+	padding:5px 10px;
+	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    box-sizing: border-box;         /* Opera/IE 8+ */
+}
+
+img, a {
+	border:0px;
+	outline:none;
+	color:#3a6cae;
+	text-decoration:none;
+}
+img, a:hover {
+	text-decoration:underline;
+}
+
+
+/****** Style Star Rating Widget *****/
+
+.rating { 
+  border: none;
+  float: left;
+}
+
+.rating > input { display: none; } 
+.rating > label:before { 
+  margin: 5px;
+  font-size: 1.25em;
+  font-family: FontAwesome;
+  display: inline-block;
+  content: "\f005";
+}
+
+.rating > .half:before { 
+  content: "\f089";
+  position: absolute;
+}
+
+.rating > label { 
+  color: #ddd; 
+ float: right; 
+}
+
+/***** CSS Magic to Highlight Stars on Hover *****/
+
+.rating > input:checked ~ label, /* show gold star when clicked */
+.rating:not(:checked) > label:hover, /* hover current star */
+.rating:not(:checked) > label:hover ~ label { color: #FFD700;  } /* hover previous stars in list */
+
+.rating > input:checked + label:hover, /* hover current star when changing rating */
+.rating > input:checked ~ label:hover,
+.rating > label:hover ~ input:checked ~ label, /* lighten current selection */
+.rating > input:checked ~ label:hover ~ label { color: #FFED85;  } 
+
+
+
+.radio-toolbar {
+  margin: 10px;
+}
+
+.radio-toolbar input[type="radio"] {
+  opacity: 0;
+  position: fixed;
+  width: 0;
+}
+
+.radio-toolbar label {
+    display: inline-block;
+   /* background-color: #ddd;*/
+    padding: 6px 20px;
+	margin: 6px;
+    font-family: sans-serif, Arial;
+    font-size: 16px;
+    border: 1px solid #d4d4c2;
+    border-radius: 4px;
+	width: 28%;
+	text-align: center;
+	cursor: pointer;
+}
+
+.radio-toolbar label:hover {
+  background-color: #dfd;
+}
+
+.radio-toolbar input[type="radio"]:focus + label {
+   /* border: 2px dashed #444;*/
+}
+
+.radio-toolbar input[type="radio"]:checked + label {
+    /*background-color: #bfb;*/
+    border-color: #4c4;
+	color: #4c4;
+}
+fieldset, label { margin: 0; padding: 0; }
+
+ul.total-am {
+    width: 100%;
+    float: left;    margin-top: -40px !important;
+    text-align: right;
+}
+
+ul.total-am li {
+    float: right;
+    width: 100%;
+    text-align: right;
+}
+
+ul.total-am li input {
+    width: auto !important;
+}
+
+ul.total-am li input {
+    width: 150px  !important;
+    /* float: right !important; */
+    font-size: 28px;
+	color:#2596e6 !important;
+}

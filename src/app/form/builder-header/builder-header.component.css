@@ -1,0 +1,157 @@
+
+.zfMainNavigation {
+    display: inline-block;
+    height:54px;
+    background: #2d3951;
+    width: 100%;
+    top: 45px;
+}
+.zfMainNavigation .home .icon {
+    font-size: 24px;
+    margin-right: 0;
+    margin-top: 0;
+    float: none;
+    position: relative;
+    top: -2px !important;
+}
+.menuLeft .home {
+    background: #000102;
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+	line-height: 17px;
+    width: auto;
+	margin-left: -38px;
+}
+.fLleft {
+    float: left;
+}
+ 
+
+.menuLeft ul li {
+    float: left;
+    line-height: 24px;
+    position: relative;
+}
+
+li {
+    list-style: none;
+} 
+
+.menuLeft ul li a {
+    color: #cacaca;
+    font-size: 14px;
+    padding: 12px 20px;
+    float: left;
+    -ms-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    cursor: pointer;
+    overflow: hidden;
+    max-width: 250px;
+    text-decoration: none;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: block;
+    letter-spacing: 0.3px !important;    height: 54px;
+}
+ 
+.zfMainNavigation icon {
+    float: left;
+    font-size: 18px;
+    margin-right: 8px;
+    margin-top: 2px;
+}
+[class^="icon-"], [class*=" icon-"] {
+    font-family: 'icomoon' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+.icon-home:before {
+    content: "\e932";
+}
+
+.icon-zfbuilder:before {
+    content: "\e929";
+}
+.icon-settings:before {
+    content: "\e92d";
+}
+.icon-Share:before {
+    content: "\e908";
+}
+
+.menuLeft ul li a.select {
+    background: #1c85bc;
+    color: #fff;
+}
+
+
+.fLRight {
+    float: right;
+}
+
+.zfBuilderNavAct {
+    margin-top: 7px;
+    padding-right: 20px;
+}
+.green1:hover {
+    background: #24A68A;
+}
+.zfBuilderNavAct a {
+    font-size: 14px;
+    color: #fff;
+    margin-left: 10px;
+    background: #1c85bc;
+    display: inline-block;
+    padding: 8px 18px;
+    text-transform: capitalize;
+    cursor: pointer;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+
+img, a:hover {
+    text-decoration: none !important;
+}
+.btnCurve {
+    display: inline-block;
+    outline: none;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 400;
+    padding: 7px 20px;
+    border-radius: 3px;
+}
+.green1 {
+    background:#1c85bc;
+    color: #FFFFFF;
+    border: 1px solid #1c85bc;
+    border-radius: 2px;
+}
+.zfBuilderNavAct .zfAllEntries {
+    background: #00000000 !important;
+    text-decoration: underline !important;
+    color: #ff4b5d;
+    line-height: 18px;
+}
+
+.zfMainNavigation {
+    margin-left: 12px;
+    margin-top: -8px;
+}
+
+ul.nf-tempHeadBdr {
+    background: blue !important;
+}
+
+

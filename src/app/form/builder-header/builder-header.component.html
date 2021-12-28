@@ -1,0 +1,26 @@
+
+<div class="zfMainNavigation">
+
+ 
+<div class="menuLeft fLleft">
+	<ul>
+	<li class="home"><a class="home" routerLink="/dashboard"><i class="fa fa-home icon"></i></a> </li>
+	<li class="flLeft"><a  [ngClass]="formInfo.tabname === 'builder' ? 'select' : ''" routerLink="/dashboard/form/{{formInfo.formslug}}/builder" routerLinkActive="active"><i class="fa fa-wpforms"></i> Builder</a> </li>
+	<li class="flLeft"><a  [ngClass]="formInfo.tabname === 'settings' ? 'select' : ''" routerLink="/dashboard/form/{{formInfo.formslug}}/settings" routerLinkActive="active"><i class="fa fa-cog"></i> Settings</a> </li>
+	<li class="flLeft"><a  [ngClass]="formInfo.tabname === 'share' ? 'select' : ''" routerLink="/dashboard/form/{{formInfo.formslug}}/share" routerLinkActive="active"><i class="fa fa-cogs"></i> Share</a> </li>
+	
+	</ul>
+	<div class="clearBoth"></div>
+</div>
+
+<div class="fLRight zfBuilderNavAct">
+<button class="btn btn-sm font-weight-bold" style="color:#fff;" (click)="backClicked()"><i class="fa fa-arrow-left"></i> Back </button>
+<a class="flLeft zfAllEntries" routerLink="/dashboard/report/{{formInfo.formslug}}/record-entry">All Entries</a>
+<a  target="_blank" routerLink="/formperma/{{formInfo.formslug}}" class="flLeft green1 btnCurve">Access Form </a>
+<div class="clearBoth"></div>
+</div>
+
+
+
+</div>
+ 

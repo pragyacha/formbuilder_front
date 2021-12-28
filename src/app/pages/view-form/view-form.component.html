@@ -1,0 +1,181 @@
+<div class="nf-templateWidth">
+<form  name='form' method='POST' accept-charset='UTF-8' enctype='multipart/form-data' id='form'>
+
+<input type="hidden" name="nf_referrer_name" value=""><!-- To Track referrals , place the referrer name within the " " in the above hidden input field -->
+<input type="hidden" name="nf_redirect_url" value=""><!-- To redirect to a specific page after record submission , place the respective url within the " " in the above hidden input field -->
+
+<input type="hidden" name="zc_gad" value=""><!-- If GCLID is enabled in Zoho CRM Integration, click details of AdWords Ads will be pushed to Zoho CRM -->
+<div class="nf-templateWrapper"><!---------template Header Starts Here---------->
+<ul class="nf-tempHeadBdr" *ngIf="model.form_header=='show'" [style.backgroundColor]="model.theme.headerbgcolor" [style.color]="model.theme.headertextcolor" >
+<li class="nf-tempHeadContBdr"><h2 class="nf-frmTitle"><em>{{model.name}} </em></h2>
+<p class="nf-frmDesc">{{model.description}}</p>
+<div class="nf-clearBoth"></div></li></ul><!---------template Header Ends Here---------->
+
+<!---------template Container Starts Here---------->
+<div class="nf-subContWrap nf-{{model.label_placement}}Align"  [style.backgroundColor]="model.theme.bgColor" [style.color]="model.theme.textColor"><ul>
+   
+  
+  
+
+<!---------Name Starts Here----------> 
+ 
+<li *ngFor="let item of model.attributes;let i= index;" class="nf-tempFrmWrapper {{item.field_size}}"><label class="nf-labelName">{{item.label}} <em *ngIf="item.required" class="text-danger">*</em> </label>
+<div class="nf-tempContDiv nf-twoType" *ngIf="item.type=='name'">
+<div class="nf-nameWrapper">
+<span> <input type="text" maxlength="255" id="{{item.name}}_first" name="firstname" [(ngModel)]="item.values.firstvalue" (change)="removeError(item.name+'_first','fname')"><label>{{item.values.firstlabel}} <span id="{{item.name}}_first_error" class="nf-errorMessage" style="float:right;"></span></label> </span> 
+ 
+<span> <input type="text" maxlength="255" id="{{item.name}}_last" name="lastname" [(ngModel)]="item.values.lastvalue" (change)="removeError(item.name+'_last','lname')"><label>{{item.values.lastlabel}} <span id="{{item.name}}_last_error" class="nf-errorMessage" style="float:right;"></span></label> </span> 
+
+<div class="nf-clearBoth"></div>
+</div>
+<!--<p id="{{item.name}}_error" class="nf-errorMessage"></p>-->
+</div>
+
+<div class="nf-tempContDiv" *ngIf="item.type=='email' || item.type=='phone' || item.type=='text' || item.type=='website'">
+<span> <input type="text" maxlength="255" id="{{item.name}}" name="{{item.name}}"  [(ngModel)]="item.value" placeholder="{{item.placeholder}}"  [ngModelOptions]="{standalone: true}" (change)="removeError(item.name,item.type)" /></span>
+ <p id="{{item.name}}_error" class="nf-errorMessage"></p>
+</div>
+
+<div class="nf-tempContDiv" *ngIf="item.type=='rating'">
+<span> 
+<fieldset class="rating">
+						<input type="radio" id="star5" name="{{item.name}}" [value]="5" /><label class = "full" for="star5" title="Awesome - 5 stars" (click)="removeError(item.name)"></label>
+						
+						<input type="radio" id="star4" name="{{item.name}}" [value]="4" /><label class = "full" for="star4" title="Pretty good - 4 stars" (click)="removeError(item.name)"></label>
+						
+						<input type="radio" id="star3" name="{{item.name}}" [value]="3" /><label class = "full" for="star3" title="Meh - 3 stars" (click)="removeError(item.name)"></label>
+						
+						<input type="radio" id="star2" name="{{item.name}}" [value]="2" /><label class = "full" for="star2" title="Kinda bad - 2 stars" (click)="removeError(item.name)"></label>
+						
+						<input type="radio" id="star1" name="{{item.name}}" [value]="1" /><label class = "full" for="star1" title="Sucks big time - 1 star" (click)="removeError(item.name)"></label>
+						
+					</fieldset>
+</span>
+ <p id="{{item.name}}_error" class="nf-errorMessage"></p>
+</div>
+
+
+<div class="nf-tempContDiv" *ngIf="item.type=='date'"><span>
+ <input type="date" style="width:300px;" name="{{item.name}}"  [(ngModel)]="item.value"  (change)="removeError(item.name)">
+ <!--<input [(ngModel)]="item.value" name="{{item.name}}" [dpDayPicker]="datePickerConfig" />-->
+ </span> 
+<p id="{{item.name}}_error" class="nf-errorMessage"></p>
+</div>
+
+<div class="nf-tempContDiv" *ngIf="item.type=='datetime-local'"><span>
+ <input type="datetime-local" style="width:300px;" name="{{item.name}}"  [(ngModel)]="item.value"  (change)="removeError(item.name)">
+ </span> 
+<p id="{{item.name}}_error" class="nf-errorMessage"></p>
+</div>
+
+<div class="nf-tempContDiv" *ngIf="item.type=='number'"><span>
+ <input type="number" style="width:300px;"  name="{{item.name}}" min="{{item.min}}" max="{{item.max}}" placeholder="{{item.placeholder}}" [(ngModel)]="item.value"  (change)="removeError(item.name)">
+ </span> 
+<p id="{{item.name}}_error" class="nf-errorMessage"></p>
+</div>
+
+<div class="nf-tempContDiv" *ngIf="item.type=='textarea'">
+<span> <textarea  name="{{item.name}}" placeholder="{{item.placeholder}}" [(ngModel)]="item.value" (change)="removeError(item.name)"></textarea> </span>
+<p id="{{item.name}}_error" class="nf-errorMessage"></p>
+</div>
+
+ 
+
+<div class="nf-tempContDiv"  *ngIf="item.type=='radio'"><div class="nf-overflow">
+
+<span class="nf-multiAttType" *ngFor="let v of item.values;let n= index"> 
+<input class="nf-radioBtnType" type="radio" id="Radio_{{n}}" name="{{item.name}}" [value]="v.value" [(ngModel)]="item.value" (change)="removeError(item.name)">
+<label for="Radio_{{n}}" class="nf-radioChoice">{{v.label}}</label>
+ </span>
+ 
+<div class="nf-clearBoth"></div></div><p id="{{item.name}}_error" class="nf-errorMessage"></p>
+</div>
+
+
+<div class="nf-tempContDiv"  *ngIf="item.type=='autocomplete'"><div class="nf-overflow">
+<span>
+<select class="nf-form-sBox" id="{{item.name}}" [(ngModel)]="item.value" [ngModelOptions]="{standalone: true}">
+          <option value="null">Please Select</option>  
+          <option *ngFor="let v of item.values" [value]="v.value">{{v.label}}</option>  
+        </select>
+</span>
+ 
+<div class="nf-clearBoth"></div></div><p id="{{item.name}}_error" class="nf-errorMessage"></p>
+</div>
+<!--/////////////////////////////calculation/////////////////////////-------->
+<div class="nf-tempContDiv"  *ngIf="item.type=='academic_level' || item.type=='document_type' || item.type=='no_of_pages' || item.type=='delivery_deadline' || item.type=='services' || item.type=='revisions_time'"><div class="nf-overflow">
+<span>
+<select class="nf-form-sBox" id="{{item.name}}" [(ngModel)]="item.value" [ngModelOptions]="{standalone: true}" (change)="calculatePrice()">
+          <option value="null">Please Select</option>  
+          <option *ngFor="let v of item.values" [value]="v.value">{{v.label}}</option>  
+        </select>
+</span>
+ 
+<div class="nf-clearBoth"></div></div><p id="{{item.name}}_error" class="nf-errorMessage"></p>
+</div>
+
+<div class="nf-tempContDiv" *ngIf="item.type=='additional_requirements'">
+<div class="nf-overflow">
+<span class="nf-multiAttType" *ngFor="let v of item.values;let j= index"> 
+<input class="nf-checkBoxType" type="checkbox" id="Checkbox_{{j}}" name="{{item.name}}"  [value]="v.value" (click)="calculatePriceMultiple(v)" />
+<label for="Checkbox_{{j}}" class="nf-checkChoice">{{v.label}}</label>
+</span>
+<div class="nf-clearBoth"></div></div><p id="{{item.name}}_error" class="nf-errorMessage"></p>
+</div>
+
+<div class="nf-tempContDiv"  *ngIf="item.type=='plagiarism_report'"><div class="nf-overflow">
+<span class="nf-multiAttType" *ngFor="let v of item.values;let n= index"> 
+<input class="nf-radioBtnType" type="radio" id="Radio_{{n}}" name="{{item.name}}" [value]="v.value" [(ngModel)]="item.value"  (click)="calculatePrice()">
+<label for="Radio_{{n}}" class="nf-radioChoice">{{v.label}}</label>
+ </span>
+ 
+<div class="nf-clearBoth"></div></div><p id="{{item.name}}_error" class="nf-errorMessage"></p>
+</div>
+<!--/////////////////////////////////////////////////////////////////////////-->
+
+<div class="nf-tempContDiv" *ngIf="item.type=='checkbox'">
+<div class="nf-overflow">
+<span class="nf-multiAttType" *ngFor="let v of item.values;let j= index"> 
+<input class="nf-checkBoxType" type="checkbox" id="Checkbox_{{j}}" name="{{item.name}}"  [value]="v.value" (click)="toggleValue(v)" />
+<label for="Checkbox_{{j}}" class="nf-checkChoice">{{v.label}}</label>
+</span>
+<div class="nf-clearBoth"></div></div><p id="{{item.name}}_error" class="nf-errorMessage"></p>
+</div>
+
+
+<div class="nf-tempContDiv" *ngIf="item.type=='file'">
+<span> <input type="file" name="{{item.name}}" id="{{item.name}}" [(ngModel)]="item.value"  (change)="onFileChanged($event)" #fileInput /></span>
+ <p id="{{item.name}}_error" class="nf-errorMessage"></p>
+</div>
+
+<div class="nf-tempContDiv" *ngIf="item.type=='image'">
+<span> <input type="file" id="{{item.name}}" name="{{item.name}}"  [(ngModel)]="item.value"  (change)="onImageChanged($event)" #fileInput  /></span>
+ <p id="{{item.name}}_error" class="nf-errorMessage"></p>
+</div>
+
+
+</li><!---------Name Ends Here----------> 
+
+</ul>
+
+</div><!---------template Container Starts Here---------->
+<ul *ngIf="model.attributes.length > 0" class="total-am">
+<li class="nf-fmFooter p-0 text-right" *ngIf="model.form_type=='editing' || model.form_type=='writing'"><strong>Total Amount</strong> : {{model.currency_code}}<input readonly name="total_price" [(ngModel)]="priceInfo.total_price" type="text" style="border: none;"></li>
+<li class="nf-fmFooter pt-2">
+<button *ngIf="!loading" type="button" class="nf-submitColor" (click)="submitForm()">{{model.submit_button_label}} <i class="fa fa-arrow-right"></i></button>
+<button *ngIf="loading" type="button" class="nf-submitColor"><span><i class="fa fa-spinner fa-spin"></i> Wating... </span></button>
+</li>
+
+</ul>
+
+<ul *ngIf="model.attributes.length == 0">
+<li *ngIf="Dataloading" class="nf-fmFooter" style="padding:80px;">
+<div class="loader3">
+  <div class="loader-wheel"></div>
+  <div class="loader-text"></div>
+</div>
+</li>
+<li *ngIf="!Dataloading" class="nf-fmFooter" style="padding:80px;">This form is empty!</li>
+</ul>
+
+</div><!-- 'nf-templateWrapper' ends --></form></div>

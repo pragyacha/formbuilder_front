@@ -1,0 +1,107 @@
+
+<div class="container pl-0 pr-0 mb-0">
+<app-builder-header [formInfo]="formInfo"></app-builder-header>
+<div class="col-sm-8 mx-auto">
+<div class="card shadow-sm p-4 m-4">
+<h2>Basic Settings</h2>
+    <hr />
+ 
+   <div class="row">
+    <div class="col-12">
+	<form class="row form-horizontal">
+    <div class="col-sm-6 form-group">
+      <label class="control-label col-sm-12" for="name">Form Title</label>
+      <div class="col-sm-12">
+        <input type="text" class="form-control" id="name" placeholder="Enter form title" name="nam" [(ngModel)]="model.name">
+      </div>
+    </div>
+        <div class="col-sm-6 form-group">
+      <label class="control-label col-sm-12" for="pwd">Form Header</label>
+      <div class="col-sm-12">  
+      	  
+				<label class="cust-check-bx">
+				<input type="radio" value="show" name="form_header"  [(ngModel)]="model.form_header"> Show &nbsp; &nbsp;
+				<span class="checkmark"></span>
+			   </label>
+			   <label class="cust-check-bx">
+				<input type="radio" value="hide" name="form_header"  [(ngModel)]="model.form_header"> Hide
+				<span class="checkmark"></span>
+			   </label>
+						  
+      </div>
+	   
+    </div>
+	
+	 <div class="col-sm-6 form-group">
+      <label class="control-label col-sm-12" for="submit_button_label">Submit Button Label</label>
+      <div class="col-sm-12">          
+        <input type="text" class="form-control" id="submit_button_label" name="submit_button_label"  [(ngModel)]="model.submit_button_label">
+      </div>
+    </div>
+	 <div class="col-sm-6 form-group">
+      <label class="control-label col-sm-12" for="summary_page_submit_button">View Summary Page Submit Button Label</label>
+      <div class="col-sm-12">          
+        <input type="text" class="form-control" id="summary_page_submit_button" name="summary_page_submit_button"  [(ngModel)]="model.summary_page_submit_button">
+      </div>
+    </div>
+	
+ <div class="col-sm-12 form-group">
+      <label class="control-label col-sm-12" for="submit_success_message">After Submit Success Message</label>
+      <div class="col-sm-12">          
+        <textarea class="form-control" id="submit_success_message" name="submit_success_message"  [(ngModel)]="model.submit_success_message"></textarea>
+      </div>
+    </div>
+	
+	 <div class="col-sm-6 form-group">
+      <label class="control-label col-sm-12" for="mail_subject">Mail Subject</label>
+      <div class="col-sm-12">          
+        <input type="text" class="form-control" id="mail_subject" name="mail_subject"  [(ngModel)]="model.mail_subject">
+      </div>
+    </div>
+<div class="col-sm-6 form-group">
+      <label class="control-label col-sm-12" for="payment_subject">After Payment Subject</label>
+      <div class="col-sm-12">          
+        <input type="text" class="form-control" id="payment_subject" name="payment_subject"  [(ngModel)]="model.payment_subject">
+      </div>
+    </div>
+<div class="col-sm-6 form-group">
+      <label class="control-label col-sm-12" for="from_email">From Email Id</label>
+      <div class="col-sm-12">          
+        <input type="text" class="form-control" id="from_email" name="from_email"  [(ngModel)]="model.from_email">
+      </div>
+    </div>
+<div class="col-sm-6 form-group">
+      <label class="control-label col-sm-12" for="from_name">From Name</label>
+      <div class="col-sm-12">          
+        <input type="text" class="form-control" id="from_name" name="from_name"  [(ngModel)]="model.from_name">
+      </div>
+    </div>
+<div class="col-sm-6 form-group">
+      <label class="control-label col-sm-12" for="mail_signature">Mail Signature</label>
+      <div class="col-sm-12">          
+        <textarea class="form-control" rows="1" id="mail_signature" name="mail_signature"  [(ngModel)]="model.mail_signature"></textarea>
+      </div>
+    </div>
+	
+	<div class="col-sm-6 form-group">
+      <label class="control-label col-sm-12" for="admin_email">Admin Email Id</label>
+      <div class="col-sm-12">          
+        <input type="text" class="form-control" id="admin_email" name="admin_email"  [(ngModel)]="model.admin_email">
+      </div>
+    </div>
+     
+    <div class="row form-group">        
+      <div class="col-sm-offset-2 col-sm-12">
+        <button *ngIf="!loading" type="submit" class="btn btn-primary pull-right" (click)="mainFormUpdate()">Save</button>
+		<button *ngIf="loading" type="button" class="btn btn-primary pull-right"><span><i class="fa fa-spinner fa-spin"></i> Saving </span></button>
+      </div>
+    </div>
+  </form>
+	</div>
+ </div> </div>
+   </div>
+ 
+</div>
+
+
+ 

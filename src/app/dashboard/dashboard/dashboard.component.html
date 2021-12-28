@@ -1,0 +1,149 @@
+   <div class="mainContHeader pl-4 pr-4">
+       <h2 class="fLleft">My Forms</h2>
+       <div class="fLRight">
+	     <button class="btn btn-primary" id="createFormBtn"  data-toggle="modal" data-target="#myModal">New Form</button></div>
+	</div>
+
+
+<div class="container">
+
+   <section class="content">
+     
+	<div class="row pt-4"> 
+<div class="col-sm-12">	
+ 
+<div class="table-responsive">
+        <table *ngIf="!Dataloading" class="table table-stripped table-bordered">
+            <ng-container *ngFor="let row of rows | paginate: { itemsPerPage: limit, currentPage: p, totalItems: total }">
+                <tr>
+                    <td><i class="fa fa-list-alt mr-2"></i> {{row.formname}}
+					<div><a routerLink="/dashboard/report/{{row.slug}}/record-entry" class="pl-5"><i class="fa fa-hand-o-right" aria-hidden="true"></i>
+ All Entries</a></div>
+					</td>
+                    <td>{{row.created_at}}</td>
+                    <td>
+                        <span *ngIf="row.is_active" class="badge badge-success">Enabled</span>
+                        <span *ngIf="!row.is_active" class="badge badge-danger">Disabled</span>
+                    </td>
+                    <td class="colum-i">
+                        <a  routerLink="/dashboard/form/{{row.slug}}/builder" class="btn  mr-2" title="Edit Form Builder"><i class="fa fa-edit"></i></a>
+                        <a  routerLink="/dashboard/form/{{row.slug}}/share" class="btn  mr-2" title="Share Script"><i class="fa fa-cogs"></i></a>
+                        <a  routerLink="/dashboard/form/{{row.slug}}/settings" class="btn mr-2" title="Settings"><i class="fa fa-cog"></i></a>
+                        <a (click)="removeForm(row.id)" href="javascript:void(0)" class="btn" title="Delete"><i class="fa fa-trash"></i></a>
+						 
+                    </td>
+                </tr>
+            </ng-container>
+			 
+            <tr *ngIf="rows.length == 0">
+                <td colspan="6" class="text-center">
+				<div class="trashedCont" style="margin:10%;">
+<span>You don't have any forms.</span>
+</div>
+				</td>
+            </tr>
+        </table>
+		<ngx-skeleton-loader count="10" animation="progress" *ngIf="Dataloading"></ngx-skeleton-loader>
+    </div>
+	
+    <div *ngIf="!Dataloading" class="pagination pagination-sm m-0 float-right">
+        <pagination-controls (pageChange)="getPage($event)"></pagination-controls>
+    </div> 
+ 
+ 
+ 
+ 
+ 
+   
+</div>
+</div>
+      <!-- /.row -->
+     </section>
+</div>
+
+<!-- Modal -->
+<div class="modal right fade in" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Create New Form</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+        <!-- Modal body -->
+      <div class="modal-body new-frm">
+     <form [formGroup]="newForm" (ngSubmit)="onSubmit()">
+	        <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Form Type</label>
+            
+			        <div class="inline-form-group rdio">
+                          <label class="cust-check-bx">
+                            <input type="radio" value="enquiry" formControlName="form_type" > Enquiry Form
+                            <span class="checkmark"></span>
+                          </label>
+						  <label class="cust-check-bx">
+                            <input type="radio" value="editing" formControlName="form_type" > Editing Form
+                            <span class="checkmark"></span>
+                          </label>
+						  
+						  <label class="cust-check-bx">
+                            <input type="radio" value="writing" formControlName="form_type" > Writing Form
+                            <span class="checkmark"></span>
+                          </label>
+                        </div>
+					<div *ngIf="submitted && f.form_type.errors" style="font-size: 80%;color: #dc3545;">
+                        <div *ngIf="f.form_type.errors.required">Please select form type</div>
+                     </div>
+					 
+			
+          </div>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Form Name</label>
+            <input type="text" class="form-control" formControlName="formname" [ngClass]="{'is-invalid': submitted && f.formname.errors }">
+			<div *ngIf="submitted && f.formname.errors" class="invalid-feedback">
+                        <div *ngIf="f.formname.errors.required">Please enter form name</div>
+                     </div>
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Description (Optional)</label>
+            <textarea class="form-control" formControlName="form_description"></textarea>
+          </div>
+		  
+		  <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Payment Gatway</label>
+            <select class="form-control" formControlName="payment_gatway">
+			<option value="">Please Select</option>
+			<option *ngFor="let row of gatway" value="{{row.id}}">{{row.gatway_name}}</option>
+			</select>
+			<div *ngIf="submitted && f.payment_gatway.errors" class="invalid-feedback">
+                        <div *ngIf="f.payment_gatway.errors.required">Please select payment gatway</div>
+                     </div>
+          </div>
+		  
+		  <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Currency</label>
+            <select class="form-control" formControlName="currency">
+			<option value="">Please Select</option>
+			<option *ngFor="let row of currency" value="{{row.id}}">{{row.currency_code}}</option>
+			</select>
+			
+			<div *ngIf="submitted && f.currency.errors" class="invalid-feedback">
+                        <div *ngIf="f.currency.errors.required">Please select currency</div>
+                     </div>
+          </div>
+		  
+		  <div class="form-group">
+		  <button type="button" class="btn btn-secondary pull-left btn-danger" data-dismiss="modal">Cancel</button>
+        <button *ngIf="!loading" type="submit" class="btn btn-primary pull-right">Create</button>
+		
+        <button *ngIf="loading" type="button" class="btn btn-primary pull-right"><span><i class="fa fa-spinner fa-spin"></i> Saving </span></button>
+		  </div>
+		  
+		  
+        </form>
+      </div>
+ 
+    </div>
+  </div>
+</div>

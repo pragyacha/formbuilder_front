@@ -1,0 +1,583 @@
+
+<div class="container pl-0 pr-0 mb-0">
+
+<app-builder-header [formInfo]="formInfo"></app-builder-header>
+
+ 
+ 
+   <div class="row pl-0 pr-0">
+    <div class="col-3  pl-0 pr-0">
+	<div class="side-box">
+
+          <div class="row pl-2">
+        <label class="col-8">Background Color</label>
+      <input class="colorpick col-4" type="color" name="bgColor" [(ngModel)]="model.theme.bgColor" (change)="mainFormUpdate()">   
+        </div>  
+         <div class="row pl-2">
+        <label class="col-8">Text Color</label>
+       <input class="colorpick col-4" type="color" name="textColor" [(ngModel)]="model.theme.textColor" (change)="mainFormUpdate()">  
+        </div> 
+		
+		  <div class="row pl-2">
+        <label class="col-8">Header Background Color</label>
+      <input class="colorpick col-4" type="color" name="headerbgcolor" [(ngModel)]="model.theme.headerbgcolor" (change)="mainFormUpdate()">
+        </div> 
+		
+ <div class="row pl-2">        <label class="col-8">Header Text Color</label>
+      <input class="colorpick col-4" type="color" name="headerbgcolor" [(ngModel)]="model.theme.headertextcolor" (change)="mainFormUpdate()">
+        </div> 
+
+     
+<div class="row mt-4">
+      <div *ngFor="let item of fieldModels" class="col-6 fields {{item.type}}_{{model.form_type}}">
+        <div class="field pointer shadow-bg" [dndDraggable]="item"
+        [dndEffectAllowed]="'copy'" 
+        (dndEnd)="onDragEnd($event)" style="cursor: move;">
+          <i [ngClass]="item.icon" class="fa pull-left"></i>
+          <div>{{item.label}} </div>
+        </div>
+      </div> 
+</div>
+    </div></div>
+   
+     <div *ngIf="Dataloading" class="col-8 offset-1"><ngx-skeleton-loader count="5" appearance="" [theme]="{ height: '100px'}"  *ngIf="Dataloading"></ngx-skeleton-loader></div>
+   <div *ngIf="!Dataloading" class="col-7 offset-1 mt-4">
+        
+	 
+      <div class="form-group bg-tp"
+      style="margin-bottom: 0px !important; padding:10px 20px 5px 20px;"
+      [style.backgroundColor]="model.theme.headerbgcolor"
+      [style.color]="model.theme.headertextcolor"  (mouseover)="changeText=true" (mouseout)="changeText=false">
+	  <span data-toggle="modal" data-target="#myModalForm" (mouseover)="changeText=true"><i class="fa fa-cog pull-right pointer"></i></span> 
+      <h2>{{model.name}}</h2>
+      <p>{{model.description}}</p>
+	  
+      </div>
+      
+      <!--a dropzone-->
+      <!--to allow dropping content that is not [dndDraggable] set dndAllowExternal to true-->
+      <section dndDropzone
+      (dndDragover)="onDragover($event)"
+      (dndDrop)="onDrop($event,model.attributes)" class="dndDropArea"
+      [ngClass]="{'empty':model.attributes.length == 0}"
+      [style.backgroundColor]="model.theme.bgColor"
+      [style.color]="model.theme.textColor"> 
+	  
+	  <div class="field bx" *ngIf="!model.attributes.length" style="text-align: center;padding:15px;">
+	  <h2 class="heading frmTitle">Start building!</h2>
+     <p class="frmDesc">Drag fields from the left panel and drop here to add them to your form.</p>
+      </div>
+      <div class="field" *ngFor="let item of model.attributes;let i= index;" 
+        (dndStart)="onDragStart($event)"
+        (dndCanceled)="onDragCanceled($event)"
+        (dndMoved)="onDragged(item, model.attributes, 'move')"
+        [dndEffectAllowed]="'all'" 
+        [dndDraggable]="item">
+        <div class="row form-group">
+         <div class="col-1"><!--<i class="fa fa-ellipsis-v dndHandle" dndHandle></i>--></div> 
+          <div class="col-10 dragmove">
+		  
+            <!-- <i [ngClass]="item.icon" class="fa pull-left"></i>
+            <h5>{{item.label}}
+            <span *ngIf="item.required" class="red">*</span></h5> -->
+                  <div class="row" *ngIf="item.type=='text' || item.type=='website'">
+				  <div class="col-md-{{item.field_size}}">
+                    <label>{{item.label}}</label> <label *ngIf="item.required" class="text-danger">*</label>
+                     <input type="text" class="form-control" id="{{item.name}}" placeholder="{{item.placeholder}}" >
+					</div>
+                  </div>
+				  
+				  <div class="row" *ngIf="item.type=='name'">
+				  <div class="col-md-{{item.field_size}}">
+                    <label>{{item.label}}</label> <label *ngIf="item.required" class="text-danger">*</label>
+                   <div class="row">
+				   <div class="col-6">
+				   <label>First Name</label>
+				   <input type="text" class="form-control" id="f{{item.name}}" placeholder="{{item.placeholder}}" >
+				   
+				   </div>
+				   <div class="col-6">
+				    <label>Last Name</label>
+				   <input type="text" class="form-control" id="l{{item.name}}" placeholder="{{item.placeholder}}" >
+				   
+				   </div>
+				   </div>
+				   </div>
+                  </div>
+				  
+				  
+                  <div class="row" *ngIf="item.type=='email'">
+				   <div class="col-md-{{item.field_size}}">
+                    <label>{{item.label}}</label> <label *ngIf="item.required" class="text-danger">*</label>
+                    <input type="email" class="form-control" id="{{item.name}}" placeholder="{{item.placeholder}}" >
+				  </div>
+                  </div>
+				  
+				  <div *ngIf="item.type=='rating'">
+                  <div> <label>{{item.label}}</label> <label *ngIf="item.required" class="text-danger">*</label></div>
+					<fieldset class="rating">
+						<input type="radio" id="star5" name="{{item.name}}" [value]="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
+						
+						<input type="radio" id="star4" name="{{item.name}}" [value]="4" /><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
+						
+						<input type="radio" id="star3" name="{{item.name}}" [value]="3" /><label class = "full" for="star3" title="Meh - 3 stars"></label>
+						
+						<input type="radio" id="star2" name="{{item.name}}" [value]="2" /><label class = "full" for="star2" title="Kinda bad - 2 stars"></label>
+						
+						<input type="radio" id="star1" name="{{item.name}}" [value]="1" /><label class = "full" for="star1" title="Sucks big time - 1 star"></label>
+						
+					</fieldset>
+                  </div>
+                  
+				  <div class="row" *ngIf="item.type=='phone'">
+				   <div class="col-md-{{item.field_size}}">
+                    <label>{{item.label}}</label> <label *ngIf="item.required" class="text-danger">*</label>
+                    <input type="text" class="form-control" id="{{item.name}}" placeholder="{{item.placeholder}}" >
+					</div>
+                  </div>
+				  
+				 <!-- <div *ngIf="item.type=='range'">
+                    <label>{{item.label}}</label> <label *ngIf="item.required" class="text-danger">*</label>
+                    <input type="range" min="1" max="100" value="50" class="slider"  id="{{item.name}}">
+                   </div>-->
+				   <div *ngIf="item.type=='heading'">
+                    <h2>{{item.label}}</h2> 
+					<p></p>
+                   </div>
+                  <div class="row" *ngIf="item.type=='number'">
+				   <div class="col-md-{{item.field_size}}">
+                      <label>{{item.label}}</label> <label *ngIf="item.required" class="text-danger">*</label>
+                      <input type="number" class="form-control" id="{{item.name}}" min="{{item.min}}" max="{{item.max}}" placeholder="{{item.placeholder}}" >
+					 </div>
+                  </div>
+					
+                  <div class="row" *ngIf="item.type=='date'">
+				  <div class="col-md-{{item.field_size}}">
+                    <label>{{item.label}}</label> <label *ngIf="item.required" class="text-danger">*</label>
+                    <input type="date" class="form-control" id="{{item.name}}" placeholder="{{item.placeholder}}" >
+					</div>
+                  </div>
+                  <div class="row" *ngIf="item.type=='datetime-local'">
+				  <div class="col-md-{{item.field_size}}">
+                    <label>{{item.label}}</label> <label *ngIf="item.required" class="text-danger">*</label>
+                    <input type="datetime-local" class="form-control" id="{{item.name}}" placeholder="{{item.placeholder}}" >
+				  </div>
+                  </div>
+				  
+                  <div class="row" *ngIf="item.type=='textarea'">
+				  <div class="col-md-{{item.field_size}}">
+                      <label>{{item.label}}</label> <label *ngIf="item.required" class="text-danger">*</label>
+                      <textarea class="form-control" id="{{item.name}}" placeholder="{{item.placeholder}}" >
+                      </textarea>
+				   </div>
+                  </div>
+					
+                  <div class="row" *ngIf="item.type=='file' || item.type=='image'">
+				  <div class="col-md-{{item.field_size}}">
+                    <label>{{item.label}} (File can't be uploaded right now)</label> <label *ngIf="item.required" class="text-danger">*</label>
+                    <input type="file" class="form-control" id="{{item.name}}" placeholder="{{item.placeholder}}" >
+                    <small class="form-text text-danger">(File can't be uploaded right now)</small>
+					</div>
+                  </div>
+                  <div *ngIf="item.type=='paragraph'">
+                    <p class="form-text">{{item.placeholder}}</p>
+                  </div>
+				  
+                  <div class="row" *ngIf="item.type=='autocomplete'">
+				  <div class="col-md-{{item.field_size}}">
+                    <label>{{item.label}}</label> <label *ngIf="item.required" class="text-danger">*</label>
+                    <select class="form-control" id="{{item.name}}" >
+                      <option *ngFor="let v of item.values" [value]="v.value">{{v.label}}</option>  
+                    </select>
+				   </div>
+                    <!-- <small class="form-text text-muted">{{item.description}}</small> -->
+                  </div>
+				  
+				  <div class="row" *ngIf="item.type=='academic_level' || item.type=='document_type' || item.type=='delivery_deadline' || item.type=='services' || item.type=='revisions_time'">
+				  <div class="col-md-{{item.field_size}}">
+                    <label>{{item.label}}</label> <label *ngIf="item.required" class="text-danger">*</label>
+                    <select class="form-control" id="{{item.name}}" >
+                      <option value="">Select {{item.label}}</option>  
+                      <option *ngFor="let v of item.values" [value]="v.value">{{v.label}}</option>  
+                    </select>
+				   </div>
+                    <!-- <small class="form-text text-muted">{{item.description}}</small> -->
+                  </div>
+				  
+				   <div class="row" *ngIf="item.type=='no_of_pages'">
+				  <div class="col-md-{{item.field_size}}">
+                    <label>{{item.label}}</label> <label *ngIf="item.required" class="text-danger">*</label>
+                    <select class="form-control" id="{{item.name}}" disabled>
+                      <option value="">Select {{item.label}}</option>  
+                    </select>
+				   </div>
+                     <small class="form-text text-muted">This is set 1 page to 500 pages client form</small> 
+                  </div>
+				  
+				  <div *ngIf="item.type=='plagiarism_report'">
+                      <label>{{item.label}}</label> <label *ngIf="item.required" class="text-danger">*</label>
+                      <div *ngFor="let v of item.values" class="inline-form-group">
+                          <label class="cust-check-bx">
+                            <input type="radio" [value]="v.value" name="{{item.name}}" [(ngModel)]="item.value" > {{v.label}}
+                            <span class="checkmark"></span>
+                          </label>
+                        </div>
+                    </div>
+				  
+                  <div *ngIf="item.type=='checkbox' || item.type=='additional_requirements'">
+                    <label>{{item.label}}</label> <label *ngIf="item.required" class="text-danger">*</label>
+                    <div *ngFor="let v of item.values" class="inline-form-group">
+                        <label class="cust-check-bx">
+                          <input type="checkbox" [value]="v.value" name="{{item.name}}" (click)="toggleValue(v)"> {{v.label}}
+                          <span class="checkmark"></span>
+                        </label>
+                      </div>
+                  </div>
+                  <div *ngIf="item.type=='radio'">
+                      <label>{{item.label}}</label> <label *ngIf="item.required" class="text-danger">*</label>
+                      <div *ngFor="let v of item.values" class="inline-form-group">
+                          <label class="cust-check-bx">
+                            <input type="radio" [value]="v.value" name="{{item.name}}" > {{v.label}}
+                            <span class="checkmark"></span>
+                          </label>
+                        </div>
+                    </div>
+                  <div *ngIf="item.type=='button'" class="btn-cont">
+                    <input type="{{item.subtype}}" (click)="submit()" value="{{item.label}}" class="btn btn-primary" id="{{item.name}}" >
+                  </div>
+          </div>
+          <div class="col-1 pull-right">
+             
+             <!--<i *ngIf="item.toggle" (click)="item.toggle=false" class="fa fa-chevron-up pull-right"></i>
+            <i *ngIf="!item.toggle" (click)="item.toggle=true" class="fa fa-chevron-down pull-right"></i>
+			-->
+             <span  data-toggle="modal" data-target="#myModal"><i (click)="editFieldInfo(i,item.id)" class="fa fa-cog pull-right pointer"></i></span>  
+            <span><i (click)="removeField(i,item.id)" class="fa fa-trash pull-right pointer"></i></span>
+			
+          </div>
+        </div>
+        
+		
+		<div *ngIf="item.toggle" class="toggle-Wrapper">
+		       
+  
+		</div>
+		
+		
+      </div>
+      <!--optional placeholder element for dropzone-->
+      <!--will be removed from DOM on init-->
+      <div class="dndPlaceholder" dndPlaceholderRef>
+      </div>
+      </section>
+
+
+
+    
+    </div>
+  </div>
+   
+  <!--<div class="row">
+   <div class="col-12"> {{model|json}}</div>
+   </div> -->
+   
+</div>
+
+
+
+
+<!-- Modal -->
+<div class="modal right fade in" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel"> Properties </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+        <!-- Modal body -->
+		<div *ngIf="FormDataloading" class="modal-body"><ngx-skeleton-loader count="10" appearance=""></ngx-skeleton-loader></div>
+      <div *ngIf="!FormDataloading" class="modal-body">
+    <!-- //////////////////////////////////////////-->
+	     <div class="form-group">
+              <label>Required</label>
+              <i *ngIf="itemInfo.required" (click)="itemInfo.required=false" class="fa fa-toggle-on red"></i>
+              <i *ngIf="!itemInfo.required" (click)="itemInfo.required=true" class="fa fa-toggle-off"></i>
+              <span class="pull-right ucfirst">{{itemInfo.type}}</span>
+          </div>
+		  <div class="form-group">
+              <label>Label</label>
+              <input class="form-control" type="text" name="label" [(ngModel)]="itemInfo.label" />
+          </div>
+		  <div class="form-group">
+              <label>Description</label>
+              <textarea class="form-control" type="text" name="description" [(ngModel)]="itemInfo.description" ></textarea>
+          </div>
+		   <div class="form-group" style="display:none;">
+              <label>Name</label>
+              <input class="form-control" type="text" name="name" [readonly]="true" [ngModel]="itemInfo.name" />
+          </div>
+          <div class="form-group" *ngIf="itemInfo.type!='heading'&& itemInfo.type!='checkbox' && itemInfo.type!='autocomplete' && itemInfo.type!='rating' && itemInfo.type!='file' && itemInfo.type!='image' && itemInfo.type!='radio'">
+              <label>Placeholder</label>
+              <input class="form-control" type="text" name="placeholder" [(ngModel)]="itemInfo.placeholder" />
+          </div>
+		  
+		  
+		  
+		  <div class="form-group" *ngIf="itemInfo.type!='heading' || itemInfo.type!='checkbox' || itemInfo.type!='radio' ">
+		  <label class="fmActTitle">Field Size</label>
+					<div class="radio-toolbar">
+					<input type="radio" id="field_size1" name="field_size" value="6" [(ngModel)]="itemInfo.field_size" >
+					<label for="field_size1">Small</label>
+
+					<input type="radio" id="field_size2" name="field_size" value="9" [(ngModel)]="itemInfo.field_size" >
+					<label for="field_size2">Medium</label>
+
+					<input type="radio" id="field_size3" name="field_size" value="12" [(ngModel)]="itemInfo.field_size" >
+					<label for="field_size3">Large</label> 
+					</div>
+					
+		  </div>
+		  
+		  
+          <div class="form-group">
+            <label>Regex</label>
+            <input class="form-control" type="text" name="regex" [(ngModel)]="itemInfo.regex" />
+          </div>
+          <div *ngIf="itemInfo.regex" class="form-group">
+            <label>Error text</label>
+            <input class="form-control" type="text" name="errorText" [(ngModel)]="itemInfo.errorText" />
+          </div>
+		  <!-- number -->
+		   <div *ngIf="itemInfo.type=='number'" class="row">
+            <div class="col-6">
+                <div class="form-group">
+                    <label>Min</label>
+                    <input class="form-control" type="text" name="min" [(ngModel)]="itemInfo.min" />
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="form-group">
+                    <label>Max</label>
+                    <input class="form-control" type="text" name="max" [(ngModel)]="itemInfo.max" />
+                </div>
+            </div>
+          </div>
+	
+	
+	
+
+          <!-- radio || checkbox || autocomplete -->
+          <div *ngIf="itemInfo.type=='radio'|| itemInfo.type=='checkbox' || itemInfo.type=='autocomplete'" >
+              <div class="row">
+                  <div class="col-5">
+                      <div class="form-group">
+                          <label>Label</label>
+                      </div>
+                  </div>
+                  <div class="col-5">
+                      <div class="form-group">
+                          <label>Value</label>
+                      </div>
+                  </div>
+                  <div class="col-2">
+                      <div class="form-group">
+                          <label>Action</label>
+                      </div>
+                  </div>
+                </div>
+              <div *ngFor="let i of itemInfo.values; let valueIndex=index;" class="row">
+              <div class="col-5">
+                  <div class="form-group">
+                      <input class="form-control" type="text" name="label" [(ngModel)]="i.label" />
+                  </div>
+              </div>
+              <div class="col-5">
+                  <div class="form-group">
+                      <input class="form-control" type="text" name="value" [(ngModel)]="i.value" />
+                  </div>
+              </div>
+              <div class="col-2">
+                  <div class="form-group">
+                      <button (click)="itemInfo.values.splice(valueIndex,1)" class="btn btn-danger btn-sm"><i class="fa fa-minus-circle"></i></button>
+                  </div>
+              </div>
+            </div>
+			
+            <div class="row">
+              <!--<div class="col-5">
+                  <div class="form-group">
+                      <input class="form-control" type="text"  [ngModel]="value.label" />
+                  </div>
+              </div>
+              <div class="col-5">
+                  <div class="form-group">
+                      <input class="form-control" type="text" [ngModel]="value.value" />
+                  </div>
+              </div>-->
+              <div class="col-2">
+                  <div class="form-group">
+                      <button (click)="addValue(itemInfo.values)" class="btn btn-success btn-sm"><i class="fa fa-plus"></i></button>
+                  </div>
+              </div>
+            </div>
+          </div>
+		  
+		  
+		    <!-- academic level -->
+          <div *ngIf="itemInfo.type=='academic_level' || itemInfo.type=='document_type' || itemInfo.type=='delivery_deadline' || itemInfo.type=='services' || itemInfo.type=='revisions_time' || itemInfo.type=='plagiarism_report' || itemInfo.type=='additional_requirements'" >
+              <div class="row">
+                  <div class="col-4">
+                      <div class="form-group">
+                          <label>Label</label>
+                      </div>
+                  </div>
+                  <div class="col-4">
+                      <div class="form-group">
+                          <label>Value</label>
+                      </div>
+                  </div>
+				  <div class="col-2">
+                      <div class="form-group">
+                          <label>Price</label>
+                      </div>
+                  </div>
+                  <div class="col-2">
+                      <div class="form-group">
+                          <label>Action</label>
+                      </div>
+                  </div>
+                </div>
+              <div *ngFor="let i of itemInfo.values; let valueIndex=index;" class="row">
+              <div class="col-4">
+                  <div class="form-group">
+                      <input *ngIf="itemInfo.type!='plagiarism_report'" class="form-control" type="text" name="label" [(ngModel)]="i.label" />
+                      <input *ngIf="itemInfo.type=='plagiarism_report'"  [readonly]="true" class="form-control" type="text" name="label" [(ngModel)]="i.label" />
+                  </div>
+              </div>
+              <div class="col-4">
+                  <div class="form-group">
+                      <input *ngIf="itemInfo.type!='plagiarism_report'" class="form-control" type="text" name="value" [(ngModel)]="i.value" />
+                      <input *ngIf="itemInfo.type=='plagiarism_report'" [readonly]="true" class="form-control" type="text" name="value" [(ngModel)]="i.value" />
+                  </div>
+              </div>
+			  <div class="col-3 pl-0 pr-0">
+                  <div class="form-group price-label">
+                      <input class="form-control" type="text" name="price" [(ngModel)]="i.price" />
+                  </div>
+              </div>
+              <div class="col-1" *ngIf="itemInfo.type!='plagiarism_report'">
+                  <div class="form-group">
+                      <button (click)="itemInfo.values.splice(valueIndex,1)" class="btn btn-danger btn-sm"><i class="fa fa-minus-circle"></i></button>
+                  </div>
+              </div>
+            </div>
+			
+            <div class="row">
+              <!--<div class="col-5">
+                  <div class="form-group">
+                      <input class="form-control" type="text"  [ngModel]="value.label" />
+                  </div>
+              </div>
+              <div class="col-5">
+                  <div class="form-group">
+                      <input class="form-control" type="text" [ngModel]="value.value" />
+                  </div>
+              </div>-->
+              <div class="col-2" *ngIf="itemInfo.type!='plagiarism_report'">
+                  <div class="form-group">
+                      <button (click)="addValue(itemInfo.values)" class="btn btn-success btn-sm"><i class="fa fa-plus"></i></button>
+                  </div>
+              </div>
+            </div>
+          </div>
+		  
+		  
+		  <div class="form-group">
+		  <label class="fmActTitle">Visibility</label>
+					<div class="visibility-toolbar">
+					<p><input type="radio" id="visibility_status1" name="visibility_status" value="Active" [(ngModel)]="itemInfo.visibility_status">
+					 <label for="visibility_status1"> &nbsp; Show Field</label></p>
+
+					<p><input type="radio" id="visibility_status2" name="visibility_status" value="InActive" [(ngModel)]="itemInfo.visibility_status">
+					 <label for="visibility_status2"> &nbsp; Hide Field</label></p>
+
+					 
+					</div>
+					<p>&nbsp;</p>
+		  
+		  </div>
+		  
+         
+            <div class="form-group">
+		  <button type="button" class="btn btn-secondary pull-left" data-dismiss="modal">Cancel</button>
+        <button *ngIf="!loading" type="submit" class="btn btn-primary pull-right" (click)="SubmitEditFormField()">Save</button>
+		
+		 <button *ngIf="loading" type="button" class="btn btn-primary pull-right"><span><i class="fa fa-spinner fa-spin"></i> Saving </span></button>
+		  </div>
+	 
+	 <!--///////////////////////////////////////////-->
+      </div>
+ 
+    </div>
+  </div>
+</div>
+
+
+
+<!--Form Modal -->
+<div class="modal right fade in" id="myModalForm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel2"> Form Properties </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+        <!-- Modal body -->
+      <div class="modal-body new-frm">
+    <!-- //////////////////////////////////////////-->
+	 
+	 
+		  <div class="form-group">
+              <label>Form Title</label>
+              <input class="form-control" type="text" name="name" [(ngModel)]="model.name" />
+          </div>
+		  <div class="form-group">
+              <label>Description</label>
+              <textarea class="form-control" type="text" name="description" [(ngModel)]="model.description" ></textarea>
+          </div>
+		  
+		  
+		   <div class="form-group">
+		  <label class="fmActTitle">Label Placement</label>
+					<div class="radio-toolbar">
+					<input type="radio" id="label_placement1" name="label_placement" value="top" [(ngModel)]="model.label_placement" >
+					<label for="label_placement1">Top</label>
+
+					<input type="radio" id="label_placement2" name="label_placement" value="left" [(ngModel)]="model.label_placement" >
+					<label for="label_placement2">Left</label>
+
+					<input type="radio" id="label_placement3" name="label_placement" value="right" [(ngModel)]="model.label_placement" >
+					<label for="label_placement3">Right</label> 
+					</div>
+				
+		  </div>
+		    
+		   
+         
+            <div class="form-group">
+		  <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Cancel</button>
+        <button *ngIf="!loading" type="submit" class="btn btn-primary pull-right" (click)="mainFormUpdate()">Save</button>
+		
+		<button *ngIf="loading" type="button" class="btn btn-primary pull-right"><span><i class="fa fa-spinner fa-spin"></i> Saving </span></button>
+		  </div>
+	 
+	 <!--///////////////////////////////////////////-->
+      </div>
+ 
+    </div>
+  </div>
+</div>

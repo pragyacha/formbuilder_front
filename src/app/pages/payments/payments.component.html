@@ -1,0 +1,58 @@
+<!--<form action="/charge" method="post" id="payment-form">
+  <div class="form-row">
+    <label for="card-element">Credit or debit card</label>
+    <div id="card-element"></div>
+    <div id="card-errors" role="alert"></div>
+  </div>
+  <button>Add payment source</button>
+</form>-->
+
+<div class="container">
+ <div class="row justify-content-center">
+<div class="row">
+
+<div class="col-md-12">
+<div><h2>Order Summary</h2></div>
+<form>
+<ngx-skeleton-loader count="10" animation="progress" *ngIf="Dataloading"></ngx-skeleton-loader>
+ <div class="row" *ngIf="!Dataloading">
+  <div class="col-md-6">
+  <div class="form-group">
+    <label for="exampleInputEmail1">ORDER ID : </label>
+   {{this.orderInfo.order_id}}
+  </div>
+  </div>
+   <div class="col-md-6" *ngFor="let item of orderDetails;let i= index;">
+  <div class="form-group">
+    <label for="exampleInputEmail1">{{item.label}} : </label>
+   {{item.value}}
+  </div>
+  </div>
+  <div class="col-md-6">
+  <div class="form-group" style="font-weight: bold;color:red;">
+    <label for="exampleInputEmail1">Total Amount : </label>
+   {{this.formInfo.currency_code}} {{this.orderInfo.total_price}}
+  </div>
+  </div>
+ 
+  
+  <div class="col-md-6">&nbsp;</div>
+  <div class="col-md-6">
+  <button type="submit" class="btn btn-primary pullright" (click)="submitPayButton()">Pay</button>
+  </div>
+  </div>
+</form>
+
+<!---------------------------------->
+
+ 
+
+<!---------------------------------->
+
+
+
+</div>
+</div>
+
+</div> 
+</div>

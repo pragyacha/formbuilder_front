@@ -1,0 +1,70 @@
+
+<div class="container pl-0 pr-0 mb-0">
+<app-builder-header [formInfo]="formInfo"></app-builder-header>
+
+ 
+<div class="col-sm-8 mx-auto">
+<div class="card shadow-sm p-4 m-4">
+
+
+    <h2>Share</h2>
+    <hr />
+ 
+   <div class="row">
+    <div class="col-12">
+	<form class="row form-horizontal" action="/action_page.php">
+    <div class="col-sm-12 form-group">
+      <label class="control-label col-sm-12" for="formurl">Form Permalink (URL)</label>
+      <div class="col-sm-12">
+        <textarea rows="3" class="form-control" id="formurl" name="formurl" [(ngModel)]="formShare.formurl"></textarea>
+      </div>
+    </div>
+	
+    <div class="col-sm-12 form-group">
+      <label class="control-label col-sm-12" for="iframe">IFrame</label>
+      <div class="col-sm-12">
+        <textarea rows="3" class="form-control" id="iframe" name="iframe" [(ngModel)]="formShare.iframe"></textarea>
+      </div>
+    </div>
+	
+ <div class="col-sm-12 form-group">
+      <label class="control-label col-sm-12" for="iframe">Payment View Page</label>
+      <div class="col-sm-12">
+        <textarea rows="10" class="form-control">
+<!--///////////////////////////////////////////////////-->
+	<?php $formid=$_GET['formid'];$orderid=$_GET['orderid'];$customerName="";$APIurl="https://api.paperpoint.in/pages/getformorderinfo/".$formid."/".$orderid;$datas=file_get_contents($APIurl);$results=json_decode($datas,true);$formInfo=$results['data'];$orderInfo=$results['orderData'];$orderDataVal=json_decode($results['orderData']['data_value'],true); ?><link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"rel="stylesheet"><div class="container"><div class="row justify-content-center"><div class="row"><div class="col-md-12"><div><h2>Order Summary</h2></div><form><div class="row"><div class="col-md-6"><div class="form-group"><label for="exampleInputEmail1">ORDER ID :</label><?php echo $orderInfo['order_id'] ?></div></div><?php foreach($orderDataVal as $value){if($value['type']=='name'&&$value['value']){$customerName=$value['value'];} ?><div class="col-md-6"><div class="form-group"><label for="exampleInputEmail1"><?php echo $value['label'] ?>:</label><?php echo $value['value'] ?></div></div><?php } ?><div class="col-md-6"><div class="form-group"style="font-weight:700;color:red"><label for="exampleInputEmail1">Total Amount :</label><?php echo $formInfo['currency_code'] ?> <?php echo $orderInfo['total_price'] ?></div></div><div class="col-md-6"></div><div class="col-md-6"><button class="btn btn-primary pullright"id="customButton"type="submit">Pay</button></div></div></form></div></div></div></div><script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script><script src="https://checkout.stripe.com/checkout.js"></script><script>var handler=StripeCheckout.configure({key:"<?=$formInfo['gatway_api']?>",image:"<?=$formInfo['image_logo']?>",locale:"auto",token:function(e){var t=new XMLHttpRequest;t.open("POST","//httpbin.org/post"),t.setRequestHeader("Content-Type","application/x-www-form-urlencoded"),t.onload=function(){200===t.status?paymentsuccess(JSON.parse(t.responseText).form.token):200!==t.status&&alert("Request failed.  Returned status of "+t.status)},t.send(encodeURI("token="+e.id))}});function paymentsuccess(e){$.ajax({url:"https://api.paperpoint.in/pages/savepaymentstatus/<?=$orderid?>/Paid",type:"get",dataType:"json",success:function(e){window.location.href="https://thehrbulb.com/app/formperma/thank-you/<?=$formInfo['slug']?>"}})}document.getElementById("customButton").addEventListener("click",function(e){handler.open({name:"<?=$customerName?>",description:"<?=$formInfo['order_desc']?>",amount:100*<?=$orderInfo['total_price']?>}),e.preventDefault()}),window.addEventListener("popstate",function(){handler.close()})</script>	
+<!--///////////////////////////////////////////////////-->
+		</textarea>
+      </div>
+    </div>
+	
+	 <div class="col-sm-12 form-group">
+      <label class="control-label col-sm-12" for="hyperlink">Hyperlink</label>
+      <div class="col-sm-12">
+        <textarea rows="4" class="form-control" id="hyperlink" name="hyperlink" [(ngModel)]="formShare.hyperlink"></textarea>
+      </div>
+    </div>
+	
+	 <div class="col-sm-12 form-group">
+      <label class="control-label col-sm-12" for="qrcode">QR Code</label>
+      <div class="col-sm-12">
+      <ngx-qrcode
+  [elementType]="elementType"
+  [errorCorrectionLevel]="correctionLevel"
+  [value]="value"
+  cssClass="bshadow"></ngx-qrcode>
+      </div>
+    </div>
+    
+	
+	 
+   
+  </form>
+	</div>
+ </div> </div> </div>
+   
+ 
+</div>
+
+
+ 

@@ -1,0 +1,219 @@
+
+/****** Style Star Rating Widget *****/
+
+.rating { 
+  border: none;
+  float: left;
+}
+
+.rating > input { display: none; } 
+.rating > label:before { 
+  margin: 5px;
+  font-size: 1.25em;
+  font-family: FontAwesome;
+  display: inline-block;
+  content: "\f005";
+}
+
+.rating > .half:before { 
+  content: "\f089";
+  position: absolute;
+}
+
+.rating > label { 
+  color: #ddd; 
+ float: right; 
+}
+
+/***** CSS Magic to Highlight Stars on Hover *****/
+
+.rating > input:checked ~ label, /* show gold star when clicked */
+.rating:not(:checked) > label:hover, /* hover current star */
+.rating:not(:checked) > label:hover ~ label { color: #FFD700;  } /* hover previous stars in list */
+
+.rating > input:checked + label:hover, /* hover current star when changing rating */
+.rating > input:checked ~ label:hover,
+.rating > label:hover ~ input:checked ~ label, /* lighten current selection */
+.rating > input:checked ~ label:hover ~ label { color: #FFED85;  } 
+
+
+
+.radio-toolbar {
+  margin: 10px;
+}
+
+.radio-toolbar input[type="radio"] {
+  opacity: 0;
+  position: fixed;
+  width: 0;
+}
+
+.radio-toolbar label {
+   display: inline-block;
+    padding: 2px 15px;
+    margin: 6px;
+    font-family: sans-serif, Arial;
+    font-size: 14px;
+    border: 1px solid #d4d4c2;
+    border-radius: 4px;
+    width: 28%;
+    text-align: center;
+    cursor: pointer;
+}
+
+.radio-toolbar label:hover {
+  background-color: #dfd;
+}
+
+.radio-toolbar input[type="radio"]:focus + label {
+   /* border: 2px dashed #444;*/
+}
+
+.radio-toolbar input[type="radio"]:checked + label {
+    /*background-color: #bfb;*/
+    border-color: #4c4;
+	color: #4c4;
+}
+.modal.right .modal-dialog {
+	position: fixed;
+	margin: auto;
+	width: 100%;
+	height: 100%;
+	-webkit-transform: translate3d(0%, 0, 0);
+	-ms-transform: translate3d(0%, 0, 0);
+	-o-transform: translate3d(0%, 0, 0);
+	transform: translate3d(0%, 0, 0);
+}
+
+.modal.right .modal-content {
+	height: 100%;
+	overflow-y: auto;
+}
+
+.modal.right .modal-body {
+	padding: 15px 15px 80px;
+}
+
+.modal.right.fade .modal-dialog {
+	right: -320px;
+	-webkit-transition: opacity 0.3s linear, right 0.3s ease-out;
+	-moz-transition: opacity 0.3s linear, right 0.3s ease-out;
+	-o-transition: opacity 0.3s linear, right 0.3s ease-out;
+	transition: opacity 0.3s linear, right 0.3s ease-out;
+}
+
+.modal.right.fade.in .modal-dialog {
+	right: 0;
+}
+.additional_requirements_editing, .plagiarism_report_editing, .revisions_time_editing, .academic_level_editing{ display:none;}
+
+
+fieldset, label { margin: 0; padding: 0; }
+body{ margin: 20px; }
+h1 { font-size: 1.5em; margin: 10px; }
+
+body {
+    background: #fbfbfb !important;
+}.side-box {
+    background: #fbfbfb;
+    float: left;
+    width: 100%;
+	padding:20px;
+    border-right: 1px solid #ccc;
+}
+.colorpick {
+    height: 25px;
+    background: transparent;
+    border: none;
+}
+
+.field.pointer.shadow-bg {
+    font-size: 12px;
+    border: 1px solid #ccc;
+	background:#FFF;
+}
+
+.field.pointer.shadow-bg i {
+    color: #1c85bc;
+    font-size: 12px;
+    margin-top: 4px;
+}
+.bg-tp{
+    background: #4e88c714 !important;
+    border: 1px solid #0000ff29;
+}.form-group.bg-tp h2, p {
+    color: #2d3951;
+}
+
+
+i.fa.fa-cog.pull-right.pointer{
+	color:#ff4b5d;
+	
+}.modal-dialog {
+    max-width:420px;
+}.modal-header {
+    background: #1c85bc;
+    color: #FFF;
+    font-size: 10px !IMPORTANT;
+    padding: 10px !important;
+    border-radius: 0px;
+}.colum-i i {
+    border: 1px solid #ccc;
+    padding: 7px;
+    border-radius: 2px;
+}section.content a {
+    font-size: 14px;
+    color: #0d9cd2;
+}.modal {
+    background: #0099ce52;
+}.new-frm label {
+    font-size: 14px;
+    font-weight: 500;
+}.inline-form-group.rdio input {
+    margin-top: 5px !important;
+    float: left;
+    margin-right: 5px;
+}
+button.btn.btn-secondary.pull-left{
+	    background: #ff4b5d !important;
+}
+.btn-danger{
+	    background: #ff4b5d;
+}button.btn.btn-primary.pull-right {
+    background: #0e79b1 !important;
+}.close {
+    opacity: 1.0 !important;
+	color:#FFF !important;
+}.field.bx {
+    background: #fbfbfb !important;
+    border: 1px dashed #ccc;
+}
+
+.field.bx h2 {
+    font-size: 18px !important;
+}
+
+.field.bx p {
+    color: #696969 !important;
+}
+
+.form-group.bg-tp h2 {
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 0px;
+}
+.dragmove label {
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+.field {
+ 
+    border-color: #d4d4d4 !important; 
+}
+label {
+    font-weight: 500;
+    font-size: 14px;
+	margin-bottom:5px;
+}
